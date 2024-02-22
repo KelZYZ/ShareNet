@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up to The Chat</title>
+  <style>
+    body {
+      background-image: url('images/background_image.jpg'); /* Updated path for the background image */
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #eee;
+    }
+
+    .form-group {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #333;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #444;
+    }
+
+    .error-message {
+      color: #ff6464;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sign up to The Chat</h1>
+    <div class="form-group">
+      <label for="signupUsername">Username:</label>
+      <input type="text" id="signupUsername" placeholder="Choose a username">
+      <br>
+      <label for="signupPassword">Password:</label>
+      <input type="password" id="signupPassword" placeholder="Choose a password">
+      <br>
+      <button class="btn" onclick="signup()">Sign Up</button>
+      <p class="error-message" id="errorMessage"></p>
+    </div>
+    <p>Already have an account? <a href="login.html">Login to The Chat here</a></p>
+
+    <script>
+      function signup() {
+        var username = document.getElementById('signupUsername').value;
+        var password = document.getElementById('signupPassword').value;
+
+        // Check if username already exists
+        if (checkUsernameExists(username)) {
+          document.getElementById('errorMessage').textContent = 'Sorry! Username already in use.';
+          return; // Do not proceed with signup
+        }
+
+        // Add logic to handle signup on the server
+        sendSignupData(username, password);
+      }
+
+      function checkUsernameExists(username) {
+        // This is a placeholder for the actual check on the server side
+        // You need to replace this with your server-side logic
+        // For simplicity, this example assumes a static list of existing usernames
+        var existingUsernames = ['user1', 'user2', 'user3']; // Replace with your data
+        return existingUsernames.includes(username);
+      }
+
+      function sendSignupData(username, password) {
+        fetch('http://localhost:3000/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username,
+            password,
+          }),
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Handle success (e.g., show a success message)
+            console.log(data.message);
+            window.location.href = 'chat.html'; // Redirect to chat page
+          })
+          .catch(error => {
+            // Handle error (e.g., show an error message)
+            console.error('Error during signup:', error);
+            document.getElementById('errorMessage').textContent = 'Error during signup. Please try again.';
+          });
+      }
+    </script>
+  </div>
+</body>
+</html>

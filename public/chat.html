@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Chat</title>
+  <style>
+    body {
+      background-image: url('images/background_image.jpg'); /* Updated path for the background image */
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.8); /* Dark background color */
+      color: #fff; /* White text color */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #eee; /* Light grey title color */
+    }
+
+    #chatBox {
+      width: 100%;
+      height: 300px;
+      background-color: #333; /* Dark grey for chat box */
+      color: #fff;
+      overflow-y: scroll;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    #textInput {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #fff; /* White button text color */
+      background-color: #333; /* Dark grey button color */
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #444; /* Slightly darker grey on hover */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>The Chat</h1>
+    <div id="chatBox">
+      <!-- Chat messages will be displayed here -->
+    </div>
+    <input type="text" id="textInput" placeholder="Type your message...">
+    <button class="btn" onclick="sendMessage()">Send</button>
+    <a href="#" class="btn">Logout</a>
+  </div>
+
+  <script>
+    function sendMessage() {
+      var message = document.getElementById('textInput').value;
+      var newMessage = document.createElement('p');
+      newMessage.textContent = message;
+      document.getElementById('chatBox').appendChild(newMessage);
+      document.getElementById('textInput').value = '';
+    }
+  </script>
+</body>
+</html>
